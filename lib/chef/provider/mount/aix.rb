@@ -40,7 +40,7 @@ class Chef
           # Check to see if there is an entry in /etc/filesystems. Last entry for a volume wins. Using command "lsfs" to fetch entries.
           enabled = false
 
-          regex_arr = device_fstab_regex.split(':')
+          regex_arr = device_fstab_regex.split(":")
           if regex_arr.size.eql?(2)
             nodename = regex_arr[0]
             devicename   = regex_arr[1]
@@ -155,15 +155,17 @@ class Chef
             Chef::Log.debug("#{@new_resource} is enabled at #{@new_resource.mount_point}")
           end
         end
+
         def mount_options_unchanged?
           current_resource_options = @current_resource.options
           current_resource_options.pop
-          
+
           @current_resource.fstype == @new_resource.fstype &&
-          current_resource_options == @new_resource.options &&
-          @current_resource.dump == @new_resource.dump &&
-          @current_resource.pass == @new_resource.pass
+            current_resource_options == @new_resource.options &&
+            @current_resource.dump == @new_resource.dump &&
+            @current_resource.pass == @new_resource.pass
         end
+
         def disable_fs
           contents = []
           if @current_resource.enabled
